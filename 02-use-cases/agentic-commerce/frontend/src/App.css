@@ -1,0 +1,8 @@
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-cream);
+}
