@@ -10,6 +10,12 @@ export default defineConfig({
     },
   },
   server: {
-    port: 8080,
+    port: 8088,
+    proxy: {
+      '/invocations': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
   },
 })

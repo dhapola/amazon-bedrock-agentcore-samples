@@ -4,5 +4,12 @@
   width: 100vw;
   position: relative;
   overflow: hidden;
-  background: var(--bg-cream);
+  background: var(--bg-deep);
+}
+
+/* Mobile: Stack vertically */
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
 }

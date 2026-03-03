@@ -144,10 +144,17 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <Sidebar metrics={metrics} user={user} onSignOut={signOut} />
-      <ChatInterface messages={messages} onSendMessage={handleSendMessage} />
-    </div>
+    <>
+      <div className="blob-container">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
+      <div className="app">
+        <Sidebar metrics={metrics} user={user} onSignOut={signOut} />
+        <ChatInterface messages={messages} onSendMessage={handleSendMessage} />
+      </div>
+    </>
   )
 }
 

@@ -1,7 +1,13 @@
 import os
+import sys
+from pathlib import Path
+
+# Add src directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+
 from strands import Agent
 from bedrock_agentcore import BedrockAgentCoreApp
-from .model.load import load_model
+from model.load import load_model
 
 REGION = os.getenv("AWS_REGION")
 

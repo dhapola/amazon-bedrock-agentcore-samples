@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion'
 import './Sidebar.css'
 
-const MetricTile = ({ title, value, unit, delay, icon }) => (
-  <motion.div 
+const MetricTile = ({ title, value, unit, delay, icon, iconClass }) => (
+  <motion.div
     className="metric-tile"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
   >
-    <div className="metric-icon">{icon}</div>
+    <div className={`metric-icon ${iconClass}`}>{icon}</div>
     <div className="metric-content">
       <div className="metric-title">{title}</div>
       <div className="metric-value">
@@ -34,22 +34,9 @@ const Sidebar = ({ metrics, user, onSignOut }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          Agent Insights
+          Agentic Commerce
         </motion.h1>
-
-        {user && (
-          <motion.div
-            className="user-info"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <div className="user-email">{user.profile?.email || 'User'}</div>
-            <button className="sign-out-btn" onClick={onSignOut}>
-              Sign Out
-            </button>
-          </motion.div>
-        )}
+        
       </div>
 
       <div className="metrics-container">
@@ -58,6 +45,7 @@ const Sidebar = ({ metrics, user, onSignOut }) => {
           value={metrics.toolsInvoked}
           delay={0.4}
           icon="🛠️"
+          iconClass="balance"
         />
 
         <MetricTile
@@ -65,13 +53,15 @@ const Sidebar = ({ metrics, user, onSignOut }) => {
           value={metrics.tokensConsumed.toLocaleString()}
           delay={0.5}
           icon="💭"
+          iconClass="income"
         />
 
         <MetricTile
           title="Cost"
-          value={`${metrics.totalCost.toFixed(2)}`}
+          value={`$${metrics.totalCost.toFixed(2)}`}
           delay={0.6}
           icon="💰"
+          iconClass="spending"
         />
 
         <motion.div
@@ -80,9 +70,9 @@ const Sidebar = ({ metrics, user, onSignOut }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         >
-          <div className="metric-icon">⚡</div>
+          <div className="metric-icon savings">⚡</div>
           <div className="metric-content">
-            <div className="metric-title">Speed</div>
+            <div className="metric-title">Latency</div>
             <div className="latency-stats">
               <div className="latency-stat">
                 <span className="latency-label">Min</span>
@@ -101,14 +91,23 @@ const Sidebar = ({ metrics, user, onSignOut }) => {
         </motion.div>
       </div>
 
-      <motion.div
-        className="sidebar-footer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.9, duration: 0.5 }}
-      >
-        Live updates
-      </motion.div>
+      {user && (
+        <motion.div
+          className="user-info"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.5 }}
+        >
+          <div className="user-avatar">{user.profile?.email?.charAt(0).toUpperCase() || 'U'}</div>
+          <div className="user-email">{user.profile?.email || 'User'}</div>
+        </motion.div>
+      )}
+
+      {user && (
+        <button className="sign-out-btn" onClick={onSignOut}>
+          Sign Out
+        </button>
+      )}
     </motion.aside>
   )
 }
