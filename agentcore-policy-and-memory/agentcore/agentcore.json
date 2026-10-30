@@ -1,0 +1,93 @@
+{
+  "name": "CustomerSupport",
+  "version": 2,
+  "managedBy": "CDK",
+  "runtimes": [
+    {
+      "name": "agent",
+      "modelProvider": "Bedrock",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/agent",
+      "runtimeVersion": "PYTHON_3_14",
+      "protocol": "HTTP",
+      "envVars": [
+        {
+          "name": "CEDAR_POLICIES_BUCKET",
+          "value": "d2-agentcore-cedar-policies"
+        }
+      ]
+    }
+  ],
+  "memories": [
+    {
+      "name": "agentMemory",
+      "eventExpiryDuration": 30,
+      "strategies": [
+        {
+          "type": "SEMANTIC",
+          "namespaceTemplates": [
+            "/users/{actorId}/facts"
+          ]
+        },
+        {
+          "type": "USER_PREFERENCE",
+          "namespaceTemplates": [
+            "/users/{actorId}/preferences"
+          ]
+        },
+        {
+          "type": "SUMMARIZATION",
+          "namespaceTemplates": [
+            "/summaries/{actorId}/{sessionId}"
+          ]
+        },
+        {
+          "type": "EPISODIC",
+          "namespaceTemplates": [
+            "/episodes/{actorId}/{sessionId}"
+          ],
+          "reflectionNamespaceTemplates": [
+            "/episodes/{actorId}"
+          ]
+        }
+      ]
+    }
+  ],
+  "knowledgeBases": [],
+  "credentials": [],
+  "evaluators": [],
+  "onlineEvalConfigs": [],
+  "agentCoreGateways": [
+    {
+      "name": "refunds",
+      "description": "Refund processing tools backed by the process_refund Lambda",
+      "targets": [
+        {
+          "name": "process-refund",
+          "targetType": "lambdaFunctionArn",
+          "lambdaFunctionArn": {
+            "lambdaArn": "arn:aws:lambda:us-west-2:${AWS_ACCOUNT_ID}:function:process_refund",
+            "toolSchemaFile": "agentcore/tools/process-refund.json"
+          }
+        }
+      ],
+      "authorizerType": "AWS_IAM",
+      "enableSemanticSearch": true,
+      "exceptionLevel": "NONE",
+      "policyEngineConfiguration": {
+        "policyEngineName": "RefundPolicies",
+        "mode": "ENFORCE"
+      }
+    }
+  ],
+  "policyEngines": [
+    {
+      "name": "RefundPolicies",
+      "description": "Refund guardrails for the refunds gateway; policies are synced from S3 by the runtime at startup",
+      "policies": []
+    }
+  ],
+  "configBundles": [],
+  "harnesses": []
+}

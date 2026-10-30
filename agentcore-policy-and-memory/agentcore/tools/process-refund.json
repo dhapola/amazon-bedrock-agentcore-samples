@@ -1,0 +1,32 @@
+[
+  {
+    "name": "process_refund",
+    "description": "Process a customer refund for a given order. Requires the order ID, refund amount in dollars, and a reason for the refund.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string",
+          "description": "The order ID to refund (e.g., ORD-12345)"
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Refund amount in whole dollars"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for the refund (e.g., defective item, wrong product, customer dissatisfied)"
+        },
+        "approved_by": {
+          "type": "string",
+          "description": "Name of the human reviewer who approved the refund. Filled in by the support system, not by the assistant."
+        }
+      },
+      "required": [
+        "order_id",
+        "amount",
+        "reason"
+      ]
+    }
+  }
+]

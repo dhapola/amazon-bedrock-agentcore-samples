@@ -1,0 +1,44 @@
+{
+  "name": "voyager-agentic-commerce",
+  "version": "1.0.0",
+  "description": "Generic AI agent streaming UI for concierge anget with AWS Amplify",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run dev --workspace=web-ui",
+    "build": "npm run build --workspace=web-ui",
+    "deploy:amplify": "npx ampx sandbox --once --identifier $(node -p \"require('./deployment-config.json').deploymentId\")",
+    "deploy:backend": "find agentic_commerce/mcp_* -name Dockerfile -exec touch {} \\; && find agentic_commerce/supervisor_agent -name Dockerfile -exec touch {} \\; && cd infrastructure/unified-backend-stack && npm install && cdk deploy --require-approval never",
+    "deploy:mcp": "npm run deploy:backend",
+    "deploy:agent": "npm run deploy:backend",
+    "deploy:visa-lambda": "cd infrastructure/visa-lambda-stack && npm install && cdk deploy --context deploymentId=$(node -p \"require('../../deployment-config.json').deploymentId\") --require-approval never",
+    "deploy:frontend": "cd infrastructure/frontend-stack && npm install && cdk deploy --require-approval never && cd ../.. && ./scripts/deploy-frontend.sh",
+    "deploy:frontend:mock": "cd infrastructure/frontend-stack && npm install && cdk deploy --require-approval never && cd ../.. && ./scripts/deploy-frontend.sh --mock",
+    "deploy:all": "./scripts/deploy-all.sh",
+    "deploy:all:with-visa": "./scripts/deploy-all.sh --with-visa-lambda",
+    "deploy:all:backend": "./scripts/deploy-all.sh --skip-frontend",
+    "deploy": "npm run deploy:amplify && npm run deploy:backend && npm run deploy:visa-lambda",
+    "clean:amplify": "npx ampx sandbox delete",
+    "clean:backend": "cd infrastructure/unified-backend-stack && cdk destroy",
+    "clean:mcp": "npm run clean:backend",
+    "clean:agent": "npm run clean:backend",
+    "clean:visa-lambda": "cd infrastructure/visa-lambda-stack && cdk destroy --context deploymentId=$(node -p \"require('../../deployment-config.json').deploymentId\")",
+    "clean:frontend": "cd infrastructure/frontend-stack && cdk destroy",
+    "clean": "npm run clean:frontend && npm run clean:backend && npm run clean:visa-lambda && npm run clean:amplify"
+  },
+  "workspaces": [
+    "web-ui",
+    "amplify"
+  ],
+  "devDependencies": {
+    "@aws-amplify/backend": "^1.22.0",
+    "@aws-amplify/backend-cli": "^1.8.2",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "aws-cdk": "^2.1114.1",
+    "aws-cdk-lib": "^2.245.0",
+    "constructs": "^10.6.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "aws4": "^1.13.2"
+  }
+}

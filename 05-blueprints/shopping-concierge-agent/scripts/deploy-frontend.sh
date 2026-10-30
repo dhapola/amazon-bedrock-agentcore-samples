@@ -51,6 +51,8 @@ fi
 
 echo -e "${GREEN}✓${NC} App ID: $APP_ID"
 echo -e "${GREEN}✓${NC} Staging Bucket: $STAGING_BUCKET"
+echo -e "${GREEN}✓${NC} AWS Region: $AWS_REGION"
+echo -e "${GREEN}✓${NC} Mock: $MOCK_FLAG"
 echo ""
 
 # Update environment configuration

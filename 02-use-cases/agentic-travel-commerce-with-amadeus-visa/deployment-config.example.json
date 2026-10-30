@@ -1,0 +1,74 @@
+{
+  "deploymentId": "agentic-commerce-for-travel",
+  "description": "Unique identifier for this deployment. Change this for each separate deployment in the same AWS account.",
+
+  "_comment_aws": "AWS Configuration - All fields are OPTIONAL with defaults",
+  "aws": {
+    "region": "us-east-1"
+  },
+
+  "_comment_cognito": "Cognito Configuration - Resource names for OAuth/authentication",
+  "cognito": {
+    "resourceServer": {
+      "identifier": "concierge-gateway",
+      "displayName": "concierge-gateway-resource-server"
+    },
+    "oauth": {
+      "scopeName": "invoke",
+      "scopeDescription": "Invoke gateway and targets"
+    },
+    "machineClient": {
+      "name": "concierge-gateway-machine-client"
+    },
+    "domainPrefix": "concierge"
+  },
+
+  "_comment_ssmParameterPaths": "SSM Parameter Store paths for API keys and configuration",
+  "ssmParameterPaths": {
+    "prefix": "/agentic-commerce",
+    "travel": {
+      "openweatherApiKey": "/agentic-commerce/travel/openweather-api-key",
+      "tavilyApiKey": "/agentic-commerce/travel/tavily-api-key",
+      "googleMapsKey": "/agentic-commerce/travel/google-maps-key",
+      "amadeusPublic": "/agentic-commerce/travel/amadeus-public",
+      "amadeusSecret": "/agentic-commerce/travel/amadeus-secret"
+    },
+    "gateway": {
+      "urlPattern": "/agentic-commerce/{deploymentId}/gateway-url"
+    }
+  },
+
+  "_comment_secretsManager": "AWS Secrets Manager paths for sensitive credentials",
+  "secretsManager": {
+    "prefix": "visa",
+    "visa": {
+      "apiKey": "visa/api-key",
+      "sharedSecret": "visa/shared-secret",
+      "encryptionApiKey": "visa/encryption-api-key",
+      "encryptionSharedSecret": "visa/encryption-shared-secret",
+      "keyId": "visa/vic_key_id",
+      "serverMleCert": "visa/server-mle-cert",
+      "mlePrivateCert": "visa/mle-private-cert"
+    }
+  },
+
+  "_comment_visa": "Visa Payment Integration Configuration",
+  "visa": {
+    "clientAppId": "VICTestAccountTR",
+    "iframeUrl": "https://sbx.vts.auth.visa.com"
+  },
+
+  "_comment_amplify": "AWS Amplify Configuration",
+  "amplify": {
+    "frontendAppName": "agentic-commerce-frontend"
+  },
+
+  "_comment_mcpTools": "MCP Tool namespace filters for gateway routing",
+  "mcpTools": {
+    "cartNamespace": "carttools___",
+    "travelNamespace": "traveltools___",
+    "itineraryNamespace": "itinerarytools___"
+  },
+
+  "_comment_usage": "USAGE: Copy this to deployment-config.json and customize. All sections except 'deploymentId' are optional. Omit any section to use defaults. See infrastructure/shared/config-loader.ts for all defaults."
+}

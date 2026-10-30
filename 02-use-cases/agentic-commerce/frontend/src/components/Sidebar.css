@@ -284,28 +284,29 @@
 }
 
 .sign-out-btn {
-  background: var(--gradient-primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius-pill);
-  padding: 10px 20px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font-body);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-secondary);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 8px;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 4px 16px rgba(108, 92, 231, 0.3);
-  margin-top: 12px;
-  width: 100%;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
 }
 
 .sign-out-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 24px rgba(108, 92, 231, 0.45);
+  background: rgba(253, 121, 168, 0.15);
+  color: var(--accent-pink, #fd79a8);
+  border-color: rgba(253, 121, 168, 0.25);
+  transform: scale(1.1);
 }
 
 .sign-out-btn:active {
-  transform: translateY(0) scale(0.98);
+  transform: scale(0.95);
 }
 
 
@@ -427,9 +428,7 @@
   }
 
   .sign-out-btn {
-    padding: 8px 16px;
-    font-size: 12px;
-    margin-top: 8px;
+    padding: 7px;
   }
 }
 

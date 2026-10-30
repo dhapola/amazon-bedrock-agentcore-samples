@@ -1,0 +1,72 @@
+{
+  "deploymentId": "voyager-agent",
+  "description": "Agentic Commerce for Travel with Amadeus and Visa",
+
+  "_comment_aws": "AWS region configuration (optional, defaults to us-east-1)",
+  "aws": {
+    "region": "us-west-2"
+  },
+
+  "_comment_cognito": "Cognito resource names (optional, all have sensible defaults)",
+  "cognito": {
+    "resourceServer": {
+      "identifier": "agentic-commerce-for-travel-gateway",
+      "displayName": "agentic-commerce-for-travel-gateway-resource-server"
+    },
+    "oauth": {
+      "scopeName": "invoke",
+      "scopeDescription": "Invoke gateway and targets"
+    },
+    "machineClient": {
+      "name": "agentic-commerce-for-travel-gateway-machine-client"
+    },
+    "domainPrefix": "agentic-commerce-for-travel"
+  },
+
+  "_comment_ssm": "SSM Parameter Store paths (optional, defaults to /agentic-commerce-for-travel)",
+  "ssmParameterPaths": {
+    "prefix": "/agentic-commerce-for-travel",
+    "gateway": {
+      "urlPattern": "/agentic-commerce-for-travel/{deploymentId}/gateway-url"
+    },
+    "travel": {
+      "openweatherApiKey": "/agentic-commerce-for-travel/travel/openweather-api-key",
+      "tavilyApiKey": "/agentic-commerce-for-travel/travel/tavily-api-key",
+      "googleMapsKey": "/agentic-commerce-for-travel/travel/google-maps-key",
+      "amadeusPublic": "/agentic-commerce-for-travel/travel/amadeus-public",
+      "amadeusSecret": "/agentic-commerce-for-travel/travel/amadeus-secret"
+    }
+  },
+
+  "_comment_secrets": "Secrets Manager paths (optional, defaults to visa prefix)",
+  "secretsManager": {
+    "prefix": "visa",
+    "visa": {
+      "apiKey": "visa/api-key",
+      "sharedSecret": "visa/shared-secret",
+      "encryptionApiKey": "visa/encryption-api-key",
+      "encryptionSharedSecret": "visa/encryption-shared-secret",
+      "vicKeyId": "visa/vic_key_id",
+      "serverMleCert": "visa/server-mle-cert",
+      "mlePrivateCert": "visa/mle-private-cert"
+    }
+  },
+
+  "_comment_visa": "Visa integration configuration (optional)",
+  "visa": {
+    "clientAppId": "VICTestAccountTR",
+    "iframeUrl": "https://sbx.vts.auth.visa.com"
+  },
+
+  "_comment_amplify": "Amplify frontend configuration (optional)",
+  "amplify": {
+    "frontendAppName": "agentic-commerce-for-travel-frontend"
+  },
+
+  "_comment_mcp": "MCP tool namespace filters (optional)",
+  "mcpTools": {
+    "cartNamespace": "carttools___",
+    "travelNamespace": "traveltools___",
+    "itineraryNamespace": "itinerarytools___"
+  }
+}

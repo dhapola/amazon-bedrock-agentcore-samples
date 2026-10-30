@@ -1,0 +1,19 @@
+{
+  "name": "amplify-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "sandbox": "ampx sandbox",
+    "sandbox:once": "ampx sandbox --once",
+    "deploy": "ampx sandbox --once"
+  },
+  "dependencies": {
+    "@aws-amplify/backend": "^1.22.0",
+    "@aws-amplify/backend-cli": "^1.8.2",
+    "@types/node": "^25.5.0",
+    "aws-cdk": "^2.1114.1",
+    "aws-cdk-lib": "^2.245.0",
+    "constructs": "^10.6.0",
+    "typescript": "^5.0.0"
+  }
+}
